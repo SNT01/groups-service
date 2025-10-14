@@ -111,7 +111,7 @@ public class OnRequestHandler implements ActionCreator {
    * @param userId
    */
   Http.Request initializeContext(Http.Request httpReq, String userId, String requestId) {
-    Map<String, Object> requestContext = new WeakHashMap<>();
+    Map<String, Object> requestContext = new HashMap<>();
     try {
       String env = getEnv(httpReq);
       requestContext.put(JsonKey.ENV, env);
@@ -168,7 +168,7 @@ public class OnRequestHandler implements ActionCreator {
         requestContext.put(JsonKey.ACTOR_ID, consumerId);
         requestContext.put(JsonKey.ACTOR_TYPE, StringUtils.capitalize(JsonKey.CONSUMER));
       }
-      Map<String, Object> map = new WeakHashMap<>();
+      Map<String, Object> map = new HashMap<>();
       map.put(JsonKey.CONTEXT, requestContext);
       return httpReq.addAttr(Attrs.CONTEXT, mapper.writeValueAsString(map));
     } catch (Exception ex) {

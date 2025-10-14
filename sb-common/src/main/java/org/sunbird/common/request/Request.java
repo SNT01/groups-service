@@ -2,8 +2,8 @@ package org.sunbird.common.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 import org.sunbird.common.exception.BaseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,12 +17,12 @@ public class Request implements Serializable {
   private RequestParams params;
   private String operation;
   private String requestId;
-  private Map<String, Object> request = new WeakHashMap<>();
-  private Map<String, Object> headers = new WeakHashMap<>();
+  private Map<String, Object> request = new HashMap<>();
+  private Map<String, Object> headers = new HashMap<>();
 
   private int timeout; // in seconds
 
-  protected Map<String, Object> context = new WeakHashMap<>();
+  protected Map<String, Object> context = new HashMap<>();
   protected String path;
 
   public Request() {
