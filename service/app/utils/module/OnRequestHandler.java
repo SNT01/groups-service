@@ -56,11 +56,8 @@ public class OnRequestHandler implements ActionCreator {
         CompletionStage<Result> result;
         Map userAuthentication = RequestInterceptor.verifyRequestData(request);
         String message = (String) userAuthentication.get(JsonKey.USER_ID);
-        if (userAuthentication.get(JsonKey.MANAGED_FOR) != null) {
-          request =
-              request.addAttr(
-                  Attrs.MANAGED_FOR, (String) userAuthentication.get(JsonKey.MANAGED_FOR));
-        }
+        String managedFor = (String) userAuthentication.get(JsonKey.MANAGED_FOR);
+        request = request.addAttr(Attrs.MANAGED_FOR, managedFor);
         request = initializeContext(request, message, requestId);
         if (!JsonKey.USER_UNAUTH_STATES.contains(message)) {
           request = request.addAttr(Attrs.USERID, message);
@@ -68,6 +65,7 @@ public class OnRequestHandler implements ActionCreator {
         } else if (JsonKey.UNAUTHORIZED.equals(message)) {
           result = getAuthorizedResult(request, message);
         } else {
+          request = request.addAttr(Attrs.USERID, message);
           result = delegate.call(request);
         }
 
