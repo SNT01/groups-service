@@ -3,7 +3,6 @@ package controllers;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
@@ -110,7 +109,7 @@ public class ResponseHandler {
         long requestTime = endTime - startTime;
         ObjectMapper objectMapper = new ObjectMapper();
         org.sunbird.common.request.Request req = new org.sunbird.common.request.Request();
-        Map<String, Object> params = new WeakHashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put(JsonKey.URL, request.getPath());
         params.put(JsonKey.LOG_TYPE, JsonKey.API_ACCESS);
         params.put(JsonKey.MESSAGE, "");
